@@ -1,0 +1,18 @@
+# Dev server (só para preview local, não vai para produção)
+server.js
+
+# Claude Code internals
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+
+# Node (caso instale dependências futuramente)
+node_modules/
+npm-debug.log*

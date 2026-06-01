@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIVACS — Soluções Digitais que Transformam Negócios</title>
+  <meta name="description" content="A AIVACS cria sites, automações, sistemas e campanhas de tráfego pago para empresas que querem crescer com tecnologia. Diagnóstico gratuito.">
+  <meta property="og:title" content="AIVACS — Soluções Digitais">
+  <meta property="og:description" content="Transformamos as dores do seu negócio em soluções digitais.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/animations.css">
+  <link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+
+<!-- Custom Cursor (desktop only) -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- WhatsApp Float Button -->
+<a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20AIVACS%20e%20quero%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20digitais." class="whatsapp-float" target="_blank" rel="noopener" title="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<!-- ====== NAVBAR ====== -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-symbol">
+      <svg viewBox="0 0 100 96" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+        <path d="M50 7 L93 79 Q95 85 89 85 L11 85 Q5 85 7 79 Z" stroke="#4BBFEF" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+        <line x1="11" y1="85" x2="89" y2="85" stroke="#4BBFEF" stroke-width="6" stroke-linecap="round"/>
+        <line x1="17" y1="93" x2="83" y2="93" stroke="#4BBFEF" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="nav-logo-text">AIVACS</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#servicos">O que fazemos</a></li>
+    <li><a href="#processo">Como funciona</a></li>
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="#cta">Contato</a></li>
+  </ul>
+
+  <a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20AIVACS%20e%20quero%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20digitais." class="nav-cta" target="_blank" rel="noopener">Falar com a AIVACS</a>
+
+  <div class="nav-hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav" id="mobileNav" aria-hidden="true">
+  <a href="#servicos" class="mobile-link">O que fazemos</a>
+  <a href="#processo" class="mobile-link">Como funciona</a>
+  <a href="#planos" class="mobile-link">Planos</a>
+  <a href="#cta" class="mobile-link">Contato</a>
+  <a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20AIVACS%20e%20quero%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20digitais." class="btn btn-primary" target="_blank" rel="noopener" style="margin-top:16px;">Falar no WhatsApp</a>
+</div>
+
+
+<!-- ====== HERO ====== -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <canvas id="particles"></canvas>
+    <div class="hero-watermark" aria-hidden="true">
+      <svg viewBox="0 0 100 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 7 L93 79 Q95 85 89 85 L11 85 Q5 85 7 79 Z" stroke="#4BBFEF" stroke-width="5" stroke-linejoin="round" fill="none"/>
+        <line x1="11" y1="85" x2="89" y2="85" stroke="#4BBFEF" stroke-width="5" stroke-linecap="round"/>
+        <line x1="17" y1="93" x2="83" y2="93" stroke="#4BBFEF" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <!-- Text Left -->
+    <div class="hero-text">
+      <div class="hero-label reveal-up">SOLUÇÕES DIGITAIS</div>
+      <h1 class="hero-headline reveal-up" style="transition-delay:.12s">
+        Transformamos a dor<br>
+        do seu negócio em<br>
+        <span class="gradient-text">solução digital.</span>
+      </h1>
+      <p class="hero-sub reveal-up" style="transition-delay:.24s">
+        Diagnóstico. Estratégia. Execução.<br>
+        Da automação ao tráfego pago, construímos o ecossistema digital que o seu negócio precisa para crescer.
+      </p>
+      <div class="hero-ctas reveal-up" style="transition-delay:.36s">
+        <a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20AIVACS%20e%20quero%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20digitais." class="btn btn-primary" target="_blank" rel="noopener">
+          Quero um diagnóstico gratuito
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#servicos" class="btn btn-ghost">Nossas soluções</a>
+      </div>
+    </div>
+
+    <!-- Visual Right -->
+    <div class="hero-visual" aria-hidden="true">
+      <svg class="hero-connections" id="heroConnections" viewBox="0 0 500 520" preserveAspectRatio="none"></svg>
+
+      <!-- Card 1: Site -->
+      <div class="hero-card hero-card-1" id="hc1">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="card-label">Site Profissional</div>
+        <div class="card-value">Performance</div>
+        <div class="progress-bar"><div class="progress-fill" id="prog1"></div></div>
+      </div>
+
+      <!-- Card 2: WhatsApp -->
+      <div class="hero-card hero-card-2" id="hc2">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="card-label">Automação WhatsApp</div>
+        <div class="card-status"><span class="status-dot"></span>Ativo agora</div>
+      </div>
+
+      <!-- Card 3: Gestão -->
+      <div class="hero-card hero-card-3" id="hc3">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="card-label">Gestão de Equipes</div>
+        <div class="card-value accent">94% eficiência</div>
+      </div>
+
+      <!-- Card 4: Tráfego -->
+      <div class="hero-card hero-card-4" id="hc4">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div class="card-label">Tráfego Pago</div>
+        <div class="card-value accent">↑ 340% alcance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== METRICS BAR ====== -->
+<section id="metrics">
+  <div class="metrics-grid">
+    <div class="metric-item reveal-scale">
+      <div class="metric-number" data-target="10" data-prefix="+">+0</div>
+      <div class="metric-label">Projetos entregues</div>
+    </div>
+    <div class="metric-item reveal-scale" style="transition-delay:.15s">
+      <div class="metric-number" data-target="5" data-prefix="+">+0</div>
+      <div class="metric-label">Segmentos atendidos</div>
+    </div>
+    <div class="metric-item reveal-scale" style="transition-delay:.3s">
+      <div class="metric-number" data-target="100" data-suffix="%">0%</div>
+      <div class="metric-label">Foco em resultado</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== PROBLEM ====== -->
+<section id="problema">
+  <div class="section-header">
+    <div class="section-tag">O PROBLEMA</div>
+    <h2 class="section-title reveal-up">"Se você se identifica com algum desses cenários..."</h2>
+    <p class="section-subtitle reveal-up" style="transition-delay:.1s">...então a AIVACS foi feita para o seu negócio.</p>
+  </div>
+
+  <div class="pain-grid stagger">
+    <div class="pain-card">
+      <div class="pain-icon">🚫</div>
+      <p class="pain-text">Meu negócio não tem presença digital profissional</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🚫</div>
+      <p class="pain-text">Perco clientes porque não consigo responder rápido no WhatsApp</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🚫</div>
+      <p class="pain-text">Não tenho visibilidade sobre o que minha equipe está produzindo</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🚫</div>
+      <p class="pain-text">Preciso de mais clientes, mas não sei como chegar neles</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🚫</div>
+      <p class="pain-text">Uso planilhas pra tudo e o processo vive quebrando</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🚫</div>
+      <p class="pain-text">Minha concorrência parece mais digital e profissional que eu</p>
+    </div>
+  </div>
+
+  <div class="pain-footer reveal-up">
+    <p>A AIVACS transforma cada um desses problemas em <span class="accent-text">solução.</span></p>
+  </div>
+</section>
+
+
+<!-- ====== SERVICES ====== -->
+<section id="servicos">
+  <div class="section-header">
+    <div class="section-tag">SOLUÇÕES</div>
+    <h2 class="section-title reveal-up">Nossa caixa de ferramentas digitais</h2>
+    <p class="section-subtitle reveal-up" style="transition-delay:.1s">Escolhemos as soluções certas para cada dor do seu negócio</p>
+  </div>
+
+  <div class="services-grid stagger">
+    <div class="service-card">
+      <span class="service-num" aria-hidden="true">01</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <h3 class="service-title">Sites & Presença Digital</h3>
+      <p class="service-desc">Criamos sites profissionais, rápidos e otimizados que representam sua marca e convertem visitantes em clientes.</p>
+      <div class="tags">
+        <span class="tag">Next.js</span><span class="tag">Lovable</span><span class="tag">SEO</span><span class="tag">Performance</span>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num" aria-hidden="true">02</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </div>
+      <h3 class="service-title">Automação & CRM</h3>
+      <p class="service-desc">Automatizamos o atendimento no WhatsApp, organizamos leads e criamos fluxos que nunca deixam um cliente sem resposta.</p>
+      <div class="tags">
+        <span class="tag">N8N</span><span class="tag">WhatsApp API</span><span class="tag">CRM</span><span class="tag">Chatbot</span>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num" aria-hidden="true">03</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <h3 class="service-title">Sistemas & Gestão</h3>
+      <p class="service-desc">Desenvolvemos sistemas customizados para organizar equipes, processos e operações, do simples ao complexo.</p>
+      <div class="tags">
+        <span class="tag">Dashboard</span><span class="tag">Database</span><span class="tag">Workflow</span><span class="tag">Relatórios</span>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-num" aria-hidden="true">04</span>
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      </div>
+      <h3 class="service-title">Tráfego & Publicidade</h3>
+      <p class="service-desc">Criamos materiais profissionais e gerenciamos campanhas no Meta e Google para trazer mais clientes certos para o seu negócio.</p>
+      <div class="tags">
+        <span class="tag">Meta ADS</span><span class="tag">Google ADS</span><span class="tag">Creative</span><span class="tag">Analytics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== PROCESS ====== -->
+<section id="processo">
+  <div class="section-header">
+    <div class="section-tag">METODOLOGIA</div>
+    <h2 class="section-title reveal-up">Do diagnóstico à entrega</h2>
+    <p class="section-subtitle reveal-up" style="transition-delay:.1s">Um processo estruturado que garante resultado</p>
+  </div>
+
+  <div class="steps-container" id="stepsContainer">
+    <div class="steps-line" aria-hidden="true"><div class="steps-line-fill" id="stepsLineFill"></div></div>
+
+    <div class="step reveal-up">
+      <div class="step-circle">01</div>
+      <h3 class="step-title">Diagnóstico</h3>
+      <p class="step-text">Ouvimos você, mapeamos as dores do negócio e identificamos as oportunidades digitais com maior impacto.</p>
+    </div>
+    <div class="step reveal-up" style="transition-delay:.15s">
+      <div class="step-circle">02</div>
+      <h3 class="step-title">Planejamento</h3>
+      <p class="step-text">Desenhamos a solução ideal, escolhemos as ferramentas certas e definimos escopo, prazo e investimento.</p>
+    </div>
+    <div class="step reveal-up" style="transition-delay:.3s">
+      <div class="step-circle">03</div>
+      <h3 class="step-title">Execução</h3>
+      <p class="step-text">Desenvolvemos com qualidade e agilidade, mantendo você atualizado em cada etapa da construção.</p>
+    </div>
+    <div class="step reveal-up" style="transition-delay:.45s">
+      <div class="step-circle">04</div>
+      <h3 class="step-title">Entrega & Crescimento</h3>
+      <p class="step-text">Entregamos, treinamos e acompanhamos. Seu negócio começa a colher os resultados.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== TOOLS MARQUEE ====== -->
+<section id="ferramentas">
+  <div class="section-header" style="margin-bottom:48px">
+    <div class="section-tag">STACK TECNOLÓGICO</div>
+    <h2 class="section-title reveal-up">Tecnologia de ponta a serviço do seu negócio</h2>
+  </div>
+
+  <div class="marquee-wrapper" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="tool-item"><div class="tool-dot"></div><span>N8N</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Claude AI</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>ChatGPT</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Lovable</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Vercel</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Meta ADS</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Google ADS</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Adobe Creative</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Freepik</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Magnific AI</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>GitHub</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Supabase</span></div>
+      <!-- clone for infinite loop -->
+      <div class="tool-item"><div class="tool-dot"></div><span>N8N</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Claude AI</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>ChatGPT</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Lovable</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Vercel</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Meta ADS</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Google ADS</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Adobe Creative</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Freepik</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Magnific AI</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>GitHub</span></div>
+      <div class="tool-item"><div class="tool-dot"></div><span>Supabase</span></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ====== INVESTIMENTO ====== -->
+<section id="planos">
+  <div class="section-header">
+    <div class="section-tag">INVESTIMENTO</div>
+    <h2 class="section-title reveal-up">Cada negócio tem suas próprias necessidades</h2>
+    <p class="section-subtitle invest-subtitle reveal-up" style="transition-delay:.1s">
+      Por isso não trabalhamos com pacotes fixos. Fazemos um diagnóstico gratuito, entendemos suas dores e apresentamos uma proposta sob medida para a realidade do seu negócio.
+    </p>
+  </div>
+
+  <div class="invest-pillars stagger">
+
+    <div class="invest-pillar">
+      <div class="invest-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+      </div>
+      <h3 class="invest-title">Diagnóstico gratuito</h3>
+      <p class="invest-desc">Entendemos seu negócio antes de qualquer proposta</p>
+    </div>
+
+    <div class="invest-pillar invest-pillar-featured">
+      <div class="invest-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </div>
+      <h3 class="invest-title">Proposta personalizada</h3>
+      <p class="invest-desc">Solução e investimento sob medida para você</p>
+    </div>
+
+    <div class="invest-pillar">
+      <div class="invest-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4BBFEF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <h3 class="invest-title">Resultado garantido</h3>
+      <p class="invest-desc">Só avançamos quando o projeto faz sentido para os dois lados</p>
+    </div>
+
+  </div>
+
+  <div class="invest-cta reveal-up">
+    <a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20AIVACS%20e%20quero%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20digitais." class="btn btn-primary btn-large" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+      Quero meu diagnóstico gratuito
+    </a>
+    <p class="invest-note">Sem compromisso. Sem valores surpresa.</p>
+  </div>
+</section>
+
+
+<!-- ====== CTA FINAL ====== -->
+<section id="cta">
+  <div class="cta-bg" aria-hidden="true"></div>
+  <div class="cta-inner">
+    <div class="cta-symbol" aria-hidden="true">
+      <svg viewBox="0 0 100 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 7 L93 79 Q95 85 89 85 L11 85 Q5 85 7 79 Z" stroke="#4BBFEF" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+        <line x1="11" y1="85" x2="89" y2="85" stroke="#4BBFEF" stroke-width="5.5" stroke-linecap="round"/>
+        <line x1="17" y1="93" x2="83" y2="93" stroke="#4BBFEF" stroke-width="5.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h2 class="cta-title reveal-up">
+      Pronto para transformar<br>seu negócio com tecnologia?
+    </h2>
+    <p class="cta-sub reveal-up" style="transition-delay:.1s">
+      Diagnóstico gratuito. Sem compromisso.<br>
+      Vamos entender suas dores e mostrar o que é possível.
+    </p>
+    <div class="cta-buttons reveal-up" style="transition-delay:.2s">
+      <a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20AIVACS%20e%20quero%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20digitais." class="btn btn-primary" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Falar no WhatsApp
+      </a>
+      <a href="mailto:sac.aivacs@gmail.com?subject=Contato%20via%20site%20AIVACS" class="btn btn-ghost">Enviar email</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== FOOTER ====== -->
+<footer id="contato">
+  <div class="footer-top-line" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#hero" class="nav-logo">
+        <div class="nav-logo-symbol">
+          <svg viewBox="0 0 100 96" fill="none" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+            <path d="M50 7 L93 79 Q95 85 89 85 L11 85 Q5 85 7 79 Z" stroke="#4BBFEF" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+            <line x1="11" y1="85" x2="89" y2="85" stroke="#4BBFEF" stroke-width="6" stroke-linecap="round"/>
+            <line x1="17" y1="93" x2="83" y2="93" stroke="#4BBFEF" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="nav-logo-text">AIVACS</span>
+      </a>
+      <p class="footer-tagline">Soluções digitais que transformam negócios.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4 class="footer-heading">Navegação</h4>
+      <ul>
+        <li><a href="#servicos">O que fazemos</a></li>
+        <li><a href="#processo">Como funciona</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#cta">Contato</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social-col">
+      <h4 class="footer-heading">Redes Sociais</h4>
+      <div class="social-icons">
+        <a href="#" class="social-icon" title="Instagram" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+        </a>
+        <a href="#" class="social-icon" title="LinkedIn" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20AIVACS%20e%20quero%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20digitais." class="social-icon" title="WhatsApp" aria-label="WhatsApp" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 AIVACS. Todos os direitos reservados.</p>
+    <p class="footer-copy">sac.aivacs@gmail.com</p>
+  </div>
+</footer>
+
+<script src="scripts/particles.js" defer></script>
+<script src="scripts/animations.js" defer></script>
+<script src="scripts/main.js" defer></script>
+</body>
+</html>
