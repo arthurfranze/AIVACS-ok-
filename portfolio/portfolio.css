@@ -1,0 +1,238 @@
+/* ===================================================
+   AIVACS — portfolio.css
+   Shared styles for all 3 portfolio sub-pages.
+   Loaded AFTER ../styles/main.css (inherits all vars).
+   =================================================== */
+
+/* ---- Sub-page hero ---- */
+.subpage-hero {
+  min-height: 42vh;
+  display: flex; align-items: center;
+  padding: 130px 6% 72px;
+  position: relative; overflow: hidden;
+}
+
+.subpage-hero-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+.subpage-hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(75,191,239,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(75,191,239,0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 40%, transparent 100%);
+}
+
+.subpage-hero-glow {
+  position: absolute; top: 0; right: 10%;
+  width: 560px; height: 400px;
+  background: radial-gradient(ellipse, rgba(75,191,239,0.06) 0%, transparent 70%);
+}
+
+.subpage-hero-content {
+  position: relative; z-index: 2;
+  max-width: 860px;
+  animation: heroFadeIn 0.8s cubic-bezier(0.4,0,0.2,1) both;
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  font-family: var(--font-mono);
+  font-size: 0.72rem; letter-spacing: 0.06em;
+  color: var(--text-muted);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 28px; flex-wrap: wrap;
+}
+.breadcrumb a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb .sep { color: var(--text-muted); }
+.breadcrumb .current { color: var(--accent); }
+
+/* Hero label */
+.subpage-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem; letter-spacing: 0.22em; color: var(--accent);
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+}
+.subpage-label::before, .subpage-label::after {
+  content: ''; display: block; width: 14px; height: 1px; background: var(--accent);
+}
+
+.subpage-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 800; line-height: 1.1;
+  letter-spacing: -0.02em; margin-bottom: 16px;
+}
+
+.subpage-desc {
+  font-size: 1rem; color: var(--text-secondary);
+  line-height: 1.75; max-width: 640px;
+}
+
+/* ---- Portfolio items section ---- */
+.portfolio-section {
+  padding: 80px 6% 96px;
+  background: var(--bg-secondary);
+}
+
+.portfolio-section-header {
+  margin-bottom: 48px;
+}
+.portfolio-section-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem; font-weight: 700; margin-bottom: 6px;
+}
+.portfolio-section-header p {
+  font-size: 0.88rem; color: var(--text-secondary);
+}
+
+/* ---- Grid of items ---- */
+.portfolio-items-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* ---- Individual portfolio item card ---- */
+.portfolio-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  /* Entry animation start state */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.56s ease, transform 0.56s ease,
+              border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-item.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.portfolio-item.revealed:hover {
+  transform: translateY(-4px);
+  border-color: rgba(75,191,239,0.3);
+  box-shadow: 0 16px 48px rgba(75,191,239,0.07);
+}
+
+/* ---- Media / placeholder area ---- */
+.media-area {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--bg-secondary);
+  position: relative; overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.media-area.vertical {
+  aspect-ratio: 9/16;
+  max-height: 300px;
+}
+
+/* Glow overlay on hover */
+.media-area::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at center, rgba(75,191,239,0.07), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.portfolio-item.revealed:hover .media-area::after { opacity: 1; }
+
+/* Placeholder visual (inside media-area) */
+.placeholder-visual {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 12px;
+  background-image:
+    linear-gradient(rgba(75,191,239,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(75,191,239,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.placeholder-icon {
+  width: 44px; height: 44px; opacity: 0.2; color: var(--accent);
+}
+.placeholder-icon svg { width: 100%; height: 100%; stroke: var(--accent); }
+
+.placeholder-label {
+  font-family: var(--font-mono);
+  font-size: 10px; color: rgba(75,191,239,0.3);
+  letter-spacing: 2px; text-transform: uppercase;
+}
+
+/* Actual media elements (when real content is added) */
+.media-area img,
+.media-area video,
+.media-area iframe {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+/* ---- Item info ---- */
+.item-info { padding: 20px 22px 24px; }
+
+.item-tags {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 12px;
+}
+
+.item-title {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.item-description {
+  font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65;
+}
+
+/* ---- CTA Float button ---- */
+.cta-float {
+  position: fixed; bottom: 28px; right: 100px;
+  background: var(--accent); color: var(--bg-primary);
+  text-decoration: none;
+  padding: 12px 22px; border-radius: 999px;
+  font-family: var(--font-display); font-size: 0.85rem; font-weight: 700;
+  z-index: 800;
+  box-shadow: 0 4px 20px rgba(75,191,239,0.4);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 7px;
+}
+.cta-float:hover {
+  background: #6CCFF5;
+  box-shadow: 0 6px 28px rgba(75,191,239,0.6);
+  transform: translateY(-2px);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .portfolio-items-grid { grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width: 768px) {
+  .subpage-hero { min-height: 36vh; padding: 110px 5% 56px; }
+  .portfolio-section { padding: 56px 5% 72px; }
+  .portfolio-items-grid { grid-template-columns: 1fr; }
+  .cta-float {
+    right: 90px; font-size: 0.78rem; padding: 10px 16px;
+    bottom: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .subpage-title { font-size: 1.75rem; }
+  .cta-float { display: none; } /* hide on very small — WA button handles it */
+}

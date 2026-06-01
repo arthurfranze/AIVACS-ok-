@@ -522,6 +522,63 @@ section { padding: 96px 6%; position: relative; overflow: hidden; }
 .tool-item:hover .tool-dot { opacity: 1; }
 
 
+/* ===== PORTFOLIO SECTION (LP) ===== */
+#portfolio { background: var(--bg-secondary); }
+
+.portfolio-lp-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 22px;
+}
+
+.portfolio-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 32px;
+  position: relative; overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  text-decoration: none; display: block; color: var(--text-primary);
+}
+.portfolio-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(75,191,239,0.08);
+}
+
+.pf-num {
+  position: absolute; top: 20px; right: 24px;
+  font-family: var(--font-display); font-size: 5rem; font-weight: 800;
+  color: var(--accent); opacity: 0.06; line-height: 1;
+  pointer-events: none; user-select: none;
+}
+.pf-icon {
+  width: 52px; height: 52px;
+  background: var(--accent-glow);
+  border: 1px solid rgba(75,191,239,0.18);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.pf-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+.pf-desc  { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px; }
+
+.pf-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.85rem; font-weight: 600; color: var(--accent);
+  margin-top: 16px;
+  transition: gap var(--transition);
+}
+.portfolio-card:hover .pf-cta { gap: 10px; }
+
+/* Bottom accent line — grows on hover */
+.pf-line {
+  position: absolute; bottom: 0; left: 0;
+  height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  transition: width 0.4s ease;
+}
+.portfolio-card:hover .pf-line { width: 100%; }
+
 /* ===== INVESTIMENTO (substituiu Pricing) ===== */
 #planos { background: var(--bg-secondary); }
 
@@ -643,6 +700,7 @@ footer { background: var(--bg-secondary); padding: 52px 6% 28px; position: relat
   .services-grid { grid-template-columns: 1fr; }
   .steps-container { grid-template-columns: repeat(2,1fr); }
   .steps-line { display: none; }
+  .portfolio-lp-grid { grid-template-columns: 1fr; }
   .invest-pillars { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto 60px; }
 }
 @media (max-width: 768px) {
