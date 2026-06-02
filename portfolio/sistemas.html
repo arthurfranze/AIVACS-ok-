@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistemas & Sites — AIVACS Portfólio</title>
-  <meta name="description" content="Dashboards, sistemas de gestão customizados e sites profissionais desenvolvidos pela AIVACS.">
+  <meta name="description" content="Dashboards, sistemas de gestão e sites profissionais entregues pela AIVACS para empresas reais.">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
   <link rel="shortcut icon" href="../assets/favicon.svg">
   <meta name="theme-color" content="#080C10">
@@ -15,23 +15,344 @@
   <link rel="stylesheet" href="../styles/animations.css">
   <link rel="stylesheet" href="../styles/components.css">
   <link rel="stylesheet" href="portfolio.css">
+
+  <style>
+    /* ===================================================
+       SISTEMAS PAGE — client gallery styles
+    =================================================== */
+
+    /* ---- Clients section wrapper ---- */
+    .clients-section {
+      background: var(--bg-primary);
+      padding: 80px 6% 40px;
+    }
+
+    /* ---- Client block ---- */
+    .client-block {
+      margin-bottom: 16px;
+    }
+
+    /* ---- Client header ---- */
+    .client-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(75,191,239,0.1);
+      flex-wrap: wrap;
+      /* reveal state */
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .client-header.revealed {
+      opacity: 1;
+      transform: none;
+    }
+
+    .client-info {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .client-number {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      padding-top: 6px;
+    }
+
+    .client-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3vw, 1.75rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 6px;
+      line-height: 1.2;
+    }
+
+    .client-desc {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    .client-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      padding-top: 4px;
+      flex-shrink: 0;
+    }
+
+    /* ---- Image grid — feed style ---- */
+    .client-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      margin-bottom: 72px;
+    }
+
+    .grid-item {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      background: var(--bg-secondary);
+      /* stagger reveal start state (set by JS) */
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.4s ease;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .grid-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Hover overlay */
+    .grid-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8,12,16,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+    .grid-item:hover .grid-item-overlay {
+      background: rgba(8,12,16,0.45);
+    }
+
+    .zoom-icon {
+      opacity: 0;
+      transform: scale(0.7);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+    .grid-item:hover .zoom-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ---- Client separator ---- */
+    .client-separator {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: 0 0 64px;
+    }
+    .sep-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(75,191,239,0.15), transparent);
+    }
+    .sep-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(75,191,239,0.3);
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    /* ---- "Next client" CTA ---- */
+    .next-client-cta {
+      margin: 16px 0 80px;
+    }
+    .next-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(75,191,239,0.4);
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 20px;
+    }
+    .next-card {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      background: rgba(75,191,239,0.02);
+      border: 1px dashed rgba(75,191,239,0.15);
+      border-radius: 16px;
+      padding: 40px;
+      transition: border-color 0.3s ease;
+    }
+    .next-card:hover { border-color: rgba(75,191,239,0.28); }
+
+    .next-placeholder {
+      width: 120px; height: 120px;
+      border-radius: 12px;
+      border: 2px dashed rgba(75,191,239,0.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .next-number {
+      font-family: var(--font-display);
+      font-size: 48px; font-weight: 800;
+      color: rgba(75,191,239,0.18);
+      line-height: 1;
+    }
+    .next-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.375rem; font-weight: 700;
+      color: var(--text-primary); margin: 0 0 8px;
+    }
+    .next-text p {
+      font-family: var(--font-body);
+      font-size: 0.9rem; color: var(--text-secondary);
+      margin: 0 0 20px; line-height: 1.65;
+    }
+    .cta-inline {
+      font-family: var(--font-body);
+      font-size: 0.9rem; font-weight: 600;
+      color: var(--accent); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: gap 0.2s ease, opacity 0.2s ease;
+    }
+    .cta-inline:hover { gap: 10px; }
+
+    /* ---- LIGHTBOX ---- */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lb-image-wrap {
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lb-image-wrap img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      display: block;
+    }
+
+    .lb-close {
+      position: fixed;
+      top: 24px; right: 24px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      width: 44px; height: 44px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+      padding: 0; color: white;
+      z-index: 1001;
+    }
+    .lb-close:hover { background: rgba(255,255,255,0.22); }
+
+    .lb-prev, .lb-next {
+      position: fixed;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      width: 52px; height: 52px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, opacity 0.2s;
+      padding: 0; color: white;
+      z-index: 1001;
+    }
+    .lb-prev { left: 24px; }
+    .lb-next { right: 24px; }
+    .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.2); }
+
+    .lb-counter {
+      position: fixed;
+      bottom: 24px; left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 2px;
+      z-index: 1001;
+      pointer-events: none;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 1024px) {
+      .clients-section { padding: 64px 5% 32px; }
+    }
+
+    @media (max-width: 768px) {
+      .clients-section { padding: 48px 5% 24px; }
+      .client-header { flex-direction: column; gap: 16px; }
+      .client-info { flex-direction: column; gap: 8px; }
+      .client-grid { gap: 3px; margin-bottom: 48px; }
+      .next-card { flex-direction: column; gap: 20px; padding: 28px 24px; }
+      .next-placeholder { width: 80px; height: 80px; }
+      .next-number { font-size: 32px; }
+      .lb-prev { left: 10px; width: 40px; height: 40px; }
+      .lb-next { right: 10px; width: 40px; height: 40px; }
+      .lb-image-wrap { max-width: 95vw; }
+    }
+
+    @media (max-width: 480px) {
+      .client-grid { gap: 2px; }
+    }
+  </style>
 </head>
 <body>
 
+<!-- Custom Cursor -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vi%20o%20portf%C3%B3lio%20da%20AIVACS%20e%20quero%20saber%20mais." class="whatsapp-float" target="_blank" rel="noopener" title="Falar no WhatsApp">
+<!-- WhatsApp Float -->
+<a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vi%20o%20portf%C3%B3lio%20de%20sistemas%20da%20AIVACS%20e%20quero%20saber%20mais." class="whatsapp-float" target="_blank" rel="noopener" title="Falar no WhatsApp">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
   </svg>
 </a>
 
-<a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vi%20o%20portf%C3%B3lio%20da%20AIVACS%20e%20quero%20saber%20mais." class="cta-float" target="_blank" rel="noopener">
+<!-- CTA Float -->
+<a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vi%20o%20portf%C3%B3lio%20de%20sistemas%20da%20AIVACS%20e%20quero%20saber%20mais." class="cta-float" target="_blank" rel="noopener">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
   Quero uma solução assim
 </a>
 
+
+<!-- ====== NAVBAR ====== -->
 <nav id="navbar">
   <a href="../index.html" class="nav-logo">
     <div class="nav-logo-symbol">
@@ -56,6 +377,7 @@
   </div>
 </nav>
 
+<!-- Mobile Nav -->
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <a href="../index.html#servicos" class="mobile-link">O que fazemos</a>
   <a href="../index.html#processo" class="mobile-link">Como funciona</a>
@@ -65,6 +387,8 @@
   <a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20AIVACS%20e%20quero%20saber%20mais%20sobre%20as%20solu%C3%A7%C3%B5es%20digitais." class="btn btn-primary" target="_blank" rel="noopener" style="margin-top:16px;">Falar no WhatsApp</a>
 </div>
 
+
+<!-- ====== SUBPAGE HERO ====== -->
 <section class="subpage-hero">
   <div class="subpage-hero-bg" aria-hidden="true">
     <div class="subpage-hero-grid"></div>
@@ -80,124 +404,214 @@
     </nav>
     <div class="subpage-label">[ 03 — SISTEMAS &amp; SITES ]</div>
     <h1 class="subpage-title">Sistemas que organizam, sites que vendem</h1>
-    <p class="subpage-desc">Dashboards customizados, sistemas de gestão e sites profissionais entregues com qualidade e velocidade para nossos clientes.</p>
+    <p class="subpage-desc">Dashboards, sistemas de gestão e sites profissionais entregues para empresas reais.</p>
   </div>
 </section>
 
-<section class="portfolio-section">
-  <div class="portfolio-items-grid">
 
-    <!-- Item 1: Dashboard de Gestão -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <img src="../assets/portfolio/sis-01.jpg" alt="Dashboard de Gestão"> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-          </div>
-          <span class="placeholder-label">[ Print do Sistema ]</span>
+<!-- ====== CLIENTS SECTION ====== -->
+<section class="clients-section">
+
+  <!-- ========================
+       CLIENTE 01 — Ice Bland
+  ========================= -->
+  <div class="client-block">
+    <div class="client-header" id="header-ice">
+      <div class="client-info">
+        <span class="client-number">[ 01 ]</span>
+        <div>
+          <h2 class="client-name">Ice Bland</h2>
+          <p class="client-desc">Franquia de açaí — Landing page de captação de leads com cupom de desconto integrado.</p>
         </div>
       </div>
-      <div class="item-info">
-        <div class="item-tags"><span class="tag">Dashboard</span><span class="tag">Sistema</span></div>
-        <h3 class="item-title">Dashboard de Gestão</h3>
-        <p class="item-description">Painel administrativo completo com visão de métricas, gestão de equipes e relatórios automáticos em tempo real.</p>
+      <div class="client-tags">
+        <span class="tag">Landing Page</span>
+        <span class="tag">Captação de Leads</span>
+        <span class="tag">Franquia</span>
       </div>
     </div>
 
-    <!-- Item 2: Site Institucional -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <img src="../assets/portfolio/sis-02.jpg" alt="Site Institucional"> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+    <div class="client-grid" id="grid-ice">
+
+      <!-- ice-01: screenshot captura de tela -->
+      <div class="client" data-client="ice" data-src="../assets/trabalhos/ice-bland/ice-01.webp" class="grid-item" tabindex="0" role="button" aria-label="Visualizar print Ice Bland 1">
+        <img src="../assets/trabalhos/ice-bland/ice-01.webp" alt="Ice Bland — sistema 1" loading="lazy">
+        <div class="grid-item-overlay">
+          <div class="zoom-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
           </div>
-          <span class="placeholder-label">[ Print do Site ]</span>
         </div>
       </div>
-      <div class="item-info">
-        <div class="item-tags"><span class="tag">Site</span><span class="tag">Institucional</span></div>
-        <h3 class="item-title">Site Institucional</h3>
-        <p class="item-description">Site profissional desenvolvido com foco em performance, identidade visual forte e experiência do usuário otimizada.</p>
-      </div>
-    </div>
 
-    <!-- Item 3: Sistema de Corretores -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <img src="../assets/portfolio/sis-03.jpg" alt="Sistema de Corretores"> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <!-- ice-02: painel administrativo -->
+      <div data-client="ice" data-src="../assets/trabalhos/ice-bland/ice-02.webp" class="grid-item" tabindex="0" role="button" aria-label="Visualizar print Ice Bland 2">
+        <img src="../assets/trabalhos/ice-bland/ice-02.webp" alt="Ice Bland — painel administrativo" loading="lazy">
+        <div class="grid-item-overlay">
+          <div class="zoom-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
           </div>
-          <span class="placeholder-label">[ Print do Sistema ]</span>
         </div>
       </div>
-      <div class="item-info">
-        <div class="item-tags"><span class="tag">Imobiliária</span><span class="tag">Gestão</span></div>
-        <h3 class="item-title">Sistema de Corretores</h3>
-        <p class="item-description">Plataforma interna para gestão de imóveis, corretores e clientes com pipeline de vendas e relatórios automatizados.</p>
-      </div>
-    </div>
 
-    <!-- Item 4: Landing Page -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <img src="../assets/portfolio/sis-04.jpg" alt="Landing Page de Vendas"> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <!-- ice-03: prancheta 2 -->
+      <div data-client="ice" data-src="../assets/trabalhos/ice-bland/ice-03.webp" class="grid-item" tabindex="0" role="button" aria-label="Visualizar print Ice Bland 3">
+        <img src="../assets/trabalhos/ice-bland/ice-03.webp" alt="Ice Bland — sistema 3" loading="lazy">
+        <div class="grid-item-overlay">
+          <div class="zoom-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
           </div>
-          <span class="placeholder-label">[ Print do Site ]</span>
         </div>
       </div>
-      <div class="item-info">
-        <div class="item-tags"><span class="tag">Site</span><span class="tag">Conversão</span></div>
-        <h3 class="item-title">Landing Page de Vendas</h3>
-        <p class="item-description">Landing page otimizada para conversão com copy persuasivo, provas sociais e CTAs estratégicos para geração de leads.</p>
-      </div>
-    </div>
 
-    <!-- Item 5: Painel de Relatórios -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <img src="../assets/portfolio/sis-05.jpg" alt="Painel de Relatórios"> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <!-- ice-04: prancheta 3 -->
+      <div data-client="ice" data-src="../assets/trabalhos/ice-bland/ice-04.webp" class="grid-item" tabindex="0" role="button" aria-label="Visualizar print Ice Bland 4">
+        <img src="../assets/trabalhos/ice-bland/ice-04.webp" alt="Ice Bland — sistema 4" loading="lazy">
+        <div class="grid-item-overlay">
+          <div class="zoom-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
           </div>
-          <span class="placeholder-label">[ Print do Sistema ]</span>
         </div>
       </div>
-      <div class="item-info">
-        <div class="item-tags"><span class="tag">Dashboard</span><span class="tag">Analytics</span></div>
-        <h3 class="item-title">Painel de Relatórios</h3>
-        <p class="item-description">Dashboard analítico com consolidação de dados de múltiplas fontes, visualizações interativas e exportação automática.</p>
-      </div>
-    </div>
 
-    <!-- Item 6: Sistema de Agendamento -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <img src="../assets/portfolio/sis-06.jpg" alt="Sistema de Agendamento"> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg>
-          </div>
-          <span class="placeholder-label">[ Print do Sistema ]</span>
-        </div>
-      </div>
-      <div class="item-info">
-        <div class="item-tags"><span class="tag">Sistema</span><span class="tag">Automação</span></div>
-        <h3 class="item-title">Sistema de Agendamento</h3>
-        <p class="item-description">Sistema web de agendamento online integrado ao WhatsApp e e-mail, com confirmações automáticas e gestão de agenda.</p>
-      </div>
     </div>
+  </div><!-- /client-block ice -->
 
+
+  <!-- ---- Separator ---- -->
+  <div class="client-separator" aria-hidden="true">
+    <div class="sep-line"></div>
+    <span class="sep-label">[ PRÓXIMO CLIENTE ]</span>
+    <div class="sep-line"></div>
   </div>
-</section>
 
+
+  <!-- ========================
+       CLIENTE 02 — STOW
+  ========================= -->
+  <div class="client-block">
+    <div class="client-header" id="header-stow">
+      <div class="client-info">
+        <span class="client-number">[ 02 ]</span>
+        <div>
+          <h2 class="client-name">STOW Corretora de Seguros</h2>
+          <p class="client-desc">Sistema de gestão de colaboradores com painel de performance, leads e vendas em tempo real.</p>
+        </div>
+      </div>
+      <div class="client-tags">
+        <span class="tag">Sistema de Gestão</span>
+        <span class="tag">Dashboard</span>
+        <span class="tag">Corretora</span>
+      </div>
+    </div>
+
+    <div class="client-grid" id="grid-stow">
+
+      <!-- stow-01 -->
+      <div data-client="stow" data-src="../assets/trabalhos/stow/stow-01.webp" class="grid-item" tabindex="0" role="button" aria-label="Visualizar print STOW 1">
+        <img src="../assets/trabalhos/stow/stow-01.webp" alt="STOW — sistema 1" loading="lazy">
+        <div class="grid-item-overlay">
+          <div class="zoom-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- stow-02 -->
+      <div data-client="stow" data-src="../assets/trabalhos/stow/stow-02.webp" class="grid-item" tabindex="0" role="button" aria-label="Visualizar print STOW 2">
+        <img src="../assets/trabalhos/stow/stow-02.webp" alt="STOW — sistema 2" loading="lazy">
+        <div class="grid-item-overlay">
+          <div class="zoom-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- stow-03: painel do colaborador -->
+      <div data-client="stow" data-src="../assets/trabalhos/stow/stow-03.webp" class="grid-item" tabindex="0" role="button" aria-label="Visualizar print STOW 3">
+        <img src="../assets/trabalhos/stow/stow-03.webp" alt="STOW — painel do colaborador" loading="lazy">
+        <div class="grid-item-overlay">
+          <div class="zoom-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- stow-04 -->
+      <div data-client="stow" data-src="../assets/trabalhos/stow/stow-04.webp" class="grid-item" tabindex="0" role="button" aria-label="Visualizar print STOW 4">
+        <img src="../assets/trabalhos/stow/stow-04.webp" alt="STOW — sistema 4" loading="lazy">
+        <div class="grid-item-overlay">
+          <div class="zoom-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- stow-05 -->
+      <div data-client="stow" data-src="../assets/trabalhos/stow/stow-05.webp" class="grid-item" tabindex="0" role="button" aria-label="Visualizar print STOW 5">
+        <img src="../assets/trabalhos/stow/stow-05.webp" alt="STOW — sistema 5" loading="lazy">
+        <div class="grid-item-overlay">
+          <div class="zoom-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- stow-06: ficha detalhada com dados do cliente -->
+      <div data-client="stow" data-src="../assets/trabalhos/stow/stow-06.jpg" class="grid-item" tabindex="0" role="button" aria-label="Visualizar print STOW 6">
+        <img src="../assets/trabalhos/stow/stow-06.jpg" alt="STOW — ficha do cliente" loading="lazy" style="object-position: center">
+        <div class="grid-item-overlay">
+          <div class="zoom-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /client-block stow -->
+
+
+  <!-- ========================
+       SEÇÃO "SUA EMPRESA AQUI"
+  ========================= -->
+  <div class="next-client-cta">
+    <span class="next-label">[ EM BREVE ]</span>
+    <div class="next-card">
+      <div class="next-placeholder">
+        <span class="next-number">?</span>
+      </div>
+      <div class="next-text">
+        <h3>Sua empresa aqui</h3>
+        <p>Cada novo projeto é uma transformação real. Quer que o próximo seja o seu?</p>
+        <a href="https://wa.me/5544999030219?text=Ol%C3%A1%2C%20vi%20o%20portf%C3%B3lio%20de%20sistemas%20da%20AIVACS%20e%20quero%20saber%20mais." class="cta-inline" target="_blank" rel="noopener">
+          Quero um projeto assim
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section><!-- /clients-section -->
+
+
+<!-- ====== LIGHTBOX ====== -->
+<div id="lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Visualizar imagem">
+  <button class="lb-close" id="lb-close" aria-label="Fechar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <button class="lb-prev" id="lb-prev" aria-label="Anterior">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <div class="lb-image-wrap">
+    <img id="lb-img" src="" alt="Print do sistema">
+  </div>
+  <button class="lb-next" id="lb-next" aria-label="Próxima">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+  <div class="lb-counter" id="lb-counter" aria-live="polite">1 / 1</div>
+</div>
+
+
+<!-- ====== FOOTER ====== -->
 <footer id="contato">
   <div class="footer-top-line" aria-hidden="true"></div>
   <div class="footer-inner">
@@ -239,9 +653,164 @@
   </div>
 </footer>
 
-<script src="../scripts/particles.js" defer></script>
-<script src="../scripts/animations.js" defer></script>
+
+<!-- ====== SCRIPTS ====== -->
 <script src="../scripts/main.js" defer></script>
-<script src="portfolio.js" defer></script>
+
+<script>
+(function () {
+
+  /* ================================================
+     LIGHTBOX — navega dentro do mesmo cliente
+  ================================================ */
+  var lb       = document.getElementById('lightbox');
+  var lbImg    = document.getElementById('lb-img');
+  var lbCnt    = document.getElementById('lb-counter');
+  var lbClose  = document.getElementById('lb-close');
+  var lbPrev   = document.getElementById('lb-prev');
+  var lbNext   = document.getElementById('lb-next');
+
+  var currentImages = [];
+  var currentIndex  = 0;
+
+  function openLightbox(images, index) {
+    currentImages = images;
+    currentIndex  = index;
+    updateLightbox();
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    lbImg.focus();
+  }
+
+  function updateLightbox() {
+    lbImg.src = currentImages[currentIndex];
+    lbCnt.textContent = (currentIndex + 1) + ' / ' + currentImages.length;
+    lbPrev.style.opacity = currentImages.length > 1 ? '1' : '0';
+    lbNext.style.opacity = currentImages.length > 1 ? '1' : '0';
+    lbPrev.style.pointerEvents = currentImages.length > 1 ? 'all' : 'none';
+    lbNext.style.pointerEvents = currentImages.length > 1 ? 'all' : 'none';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(function () { lbImg.src = ''; }, 300);
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+
+  lbPrev.addEventListener('click', function () {
+    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    updateLightbox();
+  });
+
+  lbNext.addEventListener('click', function () {
+    currentIndex = (currentIndex + 1) % currentImages.length;
+    updateLightbox();
+  });
+
+  lb.addEventListener('click', function (e) {
+    if (e.target === lb) closeLightbox();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  lbPrev.click();
+    if (e.key === 'ArrowRight') lbNext.click();
+  });
+
+
+  /* ================================================
+     WIRE UP GRID ITEMS — group by client
+  ================================================ */
+  /* Build image arrays per client */
+  var clientArrays = {};
+
+  document.querySelectorAll('.grid-item').forEach(function (item) {
+    var client = item.getAttribute('data-client');
+    var src    = item.getAttribute('data-src');
+    if (!client || !src) return;
+    if (!clientArrays[client]) clientArrays[client] = [];
+    clientArrays[client].push(src);
+  });
+
+  /* Attach click handlers */
+  document.querySelectorAll('.grid-item').forEach(function (item) {
+    var client = item.getAttribute('data-client');
+    var src    = item.getAttribute('data-src');
+    if (!client || !src) return;
+
+    var images = clientArrays[client];
+    var index  = images.indexOf(src);
+
+    item.addEventListener('click', function () {
+      openLightbox(images, index);
+    });
+
+    item.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(images, index);
+      }
+    });
+  });
+
+
+  /* ================================================
+     STAGGER REVEAL for grid items
+  ================================================ */
+  var allItems = document.querySelectorAll('.grid-item');
+
+  allItems.forEach(function (item) {
+    item.style.opacity   = '0';
+    item.style.transform = 'translateY(16px)';
+    item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  });
+
+  var gridObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+
+      /* Find all items in the same grid */
+      var grid  = entry.target.closest('.client-grid');
+      var items = grid ? Array.from(grid.querySelectorAll('.grid-item')) : [entry.target];
+
+      items.forEach(function (item, i) {
+        setTimeout(function () {
+          item.style.opacity   = '1';
+          item.style.transform = 'translateY(0)';
+        }, i * 60);
+      });
+
+      gridObs.unobserve(entry.target);
+    });
+  }, { threshold: 0.08 });
+
+  /* Observe only the first item of each grid (triggers reveal for entire grid) */
+  document.querySelectorAll('.client-grid').forEach(function (grid) {
+    var first = grid.querySelector('.grid-item');
+    if (first) gridObs.observe(first);
+  });
+
+
+  /* ================================================
+     REVEAL for client headers
+  ================================================ */
+  var headerObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        headerObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.client-header').forEach(function (h) {
+    headerObs.observe(h);
+  });
+
+})();
+</script>
 </body>
 </html>
