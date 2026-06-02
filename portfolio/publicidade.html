@@ -233,7 +233,12 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: top;   /* mostra os números do topo — mais importante */
       display: block;
+      transition: transform 0.4s ease;
+    }
+    .result-card.has-image:hover img {
+      transform: scale(1.04);
     }
 
     .result-placeholder {
@@ -496,68 +501,60 @@
   <div class="carousel-wrapper fade-secondary">
     <div class="carousel-track" id="carousel-results" role="list" aria-label="Resultados de campanhas">
 
-      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-01.jpg" loading="lazy" alt="Resultado 1"> -->
+      <!-- Resultado 1 — YouTube Analytics: 8,5 mi visualizações · 5,8 mi alcance -->
       <div class="result-card" role="listitem">
-        <div class="result-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          <span>[ Print de Resultado ]</span>
-        </div>
+        <img
+          src="../assets/resultados/resultado-01.png"
+          alt="YouTube Analytics — 8,5 milhões de visualizações e 5,8 milhões de alcance"
+          loading="lazy"
+        >
       </div>
 
-      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-02.jpg" loading="lazy" alt="Resultado 2"> -->
+      <!-- Resultado 2 — Instagram: 2M interações · 15,7k visitas ao perfil -->
       <div class="result-card" role="listitem">
-        <div class="result-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          <span>[ Print de Resultado ]</span>
-        </div>
+        <img
+          src="../assets/resultados/resultado-02.png"
+          alt="Instagram Analytics — 2 milhões de interações e 15,7 mil visitas ao perfil"
+          loading="lazy"
+        >
       </div>
 
-      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-03.jpg" loading="lazy" alt="Resultado 3"> -->
+      <!-- Resultado 3 — Instagram: 15,7k visitas · 12,6k seguidores -->
       <div class="result-card" role="listitem">
-        <div class="result-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          <span>[ Print de Resultado ]</span>
-        </div>
+        <img
+          src="../assets/resultados/resultado-03.png"
+          alt="Instagram Analytics — 15,7 mil visitas e 12,6 mil seguidores"
+          loading="lazy"
+        >
       </div>
 
-      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-04.jpg" loading="lazy" alt="Resultado 4"> -->
+      <!-- Resultado 4 — Dashboard Instagram completo: 311k views · 7k interações · 1,8k cliques -->
       <div class="result-card" role="listitem">
-        <div class="result-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M18.4 9a9 9 0 01-3.7 9 9 9 0 01-9.3 1"/></svg>
-          <span>[ Print de Resultado ]</span>
-        </div>
+        <img
+          src="../assets/resultados/resultado-04.png"
+          alt="Dashboard Instagram — 311 mil visualizações, 7 mil interações e 1,8 mil cliques no link"
+          loading="lazy"
+        >
       </div>
 
-      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-05.jpg" loading="lazy" alt="Resultado 5"> -->
+      <!-- Resultado 5 — Meta ADS: 32 conversas iniciadas a R$2,01 cada -->
       <div class="result-card" role="listitem">
-        <div class="result-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          <span>[ Print de Resultado ]</span>
-        </div>
+        <img
+          src="../assets/resultados/resultado-05.jpg"
+          alt="Meta ADS — 32 conversas iniciadas com custo de R$2,01 por conversa"
+          loading="lazy"
+          style="object-position: center"
+        >
       </div>
 
-      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-06.jpg" loading="lazy" alt="Resultado 6"> -->
+      <!-- Resultado 6 — Meta ADS: 80 conversas iniciadas a R$2,03 cada -->
       <div class="result-card" role="listitem">
-        <div class="result-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          <span>[ Print de Resultado ]</span>
-        </div>
-      </div>
-
-      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-07.jpg" loading="lazy" alt="Resultado 7"> -->
-      <div class="result-card" role="listitem">
-        <div class="result-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          <span>[ Print de Resultado ]</span>
-        </div>
-      </div>
-
-      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-08.jpg" loading="lazy" alt="Resultado 8"> -->
-      <div class="result-card" role="listitem">
-        <div class="result-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M18.4 9a9 9 0 01-3.7 9 9 9 0 01-9.3 1"/></svg>
-          <span>[ Print de Resultado ]</span>
-        </div>
+        <img
+          src="../assets/resultados/resultado-06.jpg"
+          alt="Meta ADS — 80 conversas iniciadas com custo de R$2,03 por conversa"
+          loading="lazy"
+          style="object-position: center"
+        >
       </div>
 
     </div>
