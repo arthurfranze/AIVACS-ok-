@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Publicidade & Conteúdo — AIVACS Portfólio</title>
-  <meta name="description" content="Campanhas de tráfego pago, criativos com IA, vídeos institucionais e reels produzidos pela AIVACS.">
+  <meta name="description" content="Vídeos, criativos e resultados reais de campanhas produzidas pela AIVACS.">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
   <link rel="shortcut icon" href="../assets/favicon.svg">
   <meta name="theme-color" content="#080C10">
@@ -15,6 +15,377 @@
   <link rel="stylesheet" href="../styles/animations.css">
   <link rel="stylesheet" href="../styles/components.css">
   <link rel="stylesheet" href="portfolio.css">
+
+  <style>
+    /* ===================================================
+       PUBLICIDADE PAGE — carousel-specific styles
+    =================================================== */
+
+    /* ---- Carousel sections ---- */
+    .carousel-section {
+      background: var(--bg-primary);
+      padding: 72px 0 80px;
+    }
+    .carousel-section:nth-of-type(3) {
+      background: var(--bg-secondary);
+      padding-top: 80px;
+    }
+
+    .carousel-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .carousel-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .carousel-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .carousel-hint {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    /* ---- Carousel wrapper (handles fades) ---- */
+    .carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Fade — videos section on bg-primary */
+    .fade-primary::before {
+      content: '';
+      position: absolute; top: 0; bottom: 0; left: 0;
+      width: 80px; z-index: 2; pointer-events: none;
+      background: linear-gradient(to right, #080C10, transparent);
+    }
+    .fade-primary::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; right: 0;
+      width: 80px; z-index: 2; pointer-events: none;
+      background: linear-gradient(to left, #080C10, transparent);
+    }
+
+    /* Fade — results section on bg-secondary */
+    .fade-secondary::before {
+      content: '';
+      position: absolute; top: 0; bottom: 0; left: 0;
+      width: 80px; z-index: 2; pointer-events: none;
+      background: linear-gradient(to right, #0D1117, transparent);
+    }
+    .fade-secondary::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; right: 0;
+      width: 80px; z-index: 2; pointer-events: none;
+      background: linear-gradient(to left, #0D1117, transparent);
+    }
+
+    /* ---- Carousel track ---- */
+    .carousel-track {
+      display: flex;
+      gap: 14px;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      padding: 16px 48px 28px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .carousel-track.is-dragging { cursor: grabbing; scroll-behavior: auto; }
+
+    /* ---- VIDEO CARD — Short (9:16) ---- */
+    .video-card {
+      flex: 0 0 auto;
+      width: 180px;
+      aspect-ratio: 9/16;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      scroll-snap-align: start;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      border: 1px solid rgba(75,191,239,0.08);
+      background: var(--bg-card);
+    }
+    .video-card:hover {
+      transform: scale(1.03);
+      border-color: rgba(75,191,239,0.3);
+      box-shadow: 0 8px 32px rgba(75,191,239,0.12);
+    }
+
+    /* ---- VIDEO CARD — Wide (16:9) ---- */
+    .video-card-wide {
+      flex: 0 0 auto;
+      width: 320px;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      scroll-snap-align: start;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      border: 1px solid rgba(75,191,239,0.08);
+      background: var(--bg-card);
+    }
+    .video-card-wide:hover {
+      transform: scale(1.03);
+      border-color: rgba(75,191,239,0.3);
+      box-shadow: 0 8px 32px rgba(75,191,239,0.12);
+    }
+
+    /* Thumbnail */
+    .video-card img,
+    .video-card-wide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      pointer-events: none;
+    }
+
+    /* Overlay on hover */
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+    .video-card:hover .card-overlay,
+    .video-card-wide:hover .card-overlay {
+      background: rgba(0,0,0,0.38);
+    }
+
+    /* Play icon */
+    .play-icon {
+      opacity: 0;
+      transform: scale(0.75);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .video-card:hover .play-icon,
+    .video-card-wide:hover .play-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .play-icon svg { display: block; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5)); }
+
+    /* Type badge */
+    .badge-type {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(75,191,239,0.12);
+      border: 1px solid rgba(75,191,239,0.28);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 1px;
+      padding: 3px 7px;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    /* ---- RESULT CARD ---- */
+    .result-card {
+      flex: 0 0 auto;
+      width: 280px;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(75,191,239,0.08);
+      cursor: default;
+      scroll-snap-align: start;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      background: var(--bg-card);
+      position: relative;
+    }
+    .result-card.has-image {
+      cursor: pointer;
+    }
+    .result-card.has-image:hover {
+      transform: scale(1.03);
+      border-color: rgba(75,191,239,0.3);
+    }
+    .result-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .result-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-image:
+        linear-gradient(rgba(75,191,239,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(75,191,239,0.025) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .result-placeholder svg {
+      width: 36px; height: 36px;
+      stroke: var(--accent); opacity: 0.15;
+    }
+    .result-placeholder span {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(75,191,239,0.25);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ---- Section divider ---- */
+    .section-divider {
+      padding: 0 6%;
+      background: var(--bg-primary);
+    }
+    .divider-line {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(75,191,239,0.18), transparent);
+    }
+
+    /* ---- VIDEO MODAL ---- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-container {
+      position: relative;
+      width: 90vw;
+      max-width: 480px; /* shorts */
+    }
+    .modal-container.wide {
+      max-width: 900px;
+    }
+
+    .modal-player {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9/16;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(75,191,239,0.2);
+      background: #000;
+    }
+    .modal-player.wide-player {
+      aspect-ratio: 16/9;
+    }
+    .modal-player iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -46px;
+      right: 0;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      cursor: pointer;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      padding: 0;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.2); }
+    .modal-close svg { width: 16px; height: 16px; stroke: white; pointer-events: none; }
+
+    /* ---- Lightbox (result images) ---- */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 2100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      cursor: zoom-out;
+    }
+    .lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox-overlay img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 0 80px rgba(0,0,0,0.8);
+      object-fit: contain;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 768px) {
+      .carousel-inner { padding: 0 20px; }
+      .carousel-track { padding: 12px 20px 20px; gap: 10px; }
+      .carousel-header { margin-bottom: 20px; }
+      .video-card { width: 140px; }
+      .video-card-wide { width: 240px; }
+      .result-card { width: 220px; }
+      .carousel-section { padding: 48px 0; }
+      .fade-primary::before,
+      .fade-secondary::before { width: 32px; }
+      .fade-primary::after,
+      .fade-secondary::after  { width: 32px; }
+      .modal-container { max-width: 92vw; }
+    }
+
+    @media (max-width: 480px) {
+      .video-card { width: 128px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -92,132 +463,125 @@
 </section>
 
 
-<!-- ====== PORTFOLIO ITEMS ====== -->
-<section class="portfolio-section">
-  <div class="portfolio-items-grid">
-
-    <!-- Item 1: Campanha Meta ADS -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <img src="../assets/portfolio/pub-01.jpg" alt="Campanha Meta ADS"> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
-          </div>
-          <span class="placeholder-label">[ Print de Campanha ]</span>
-        </div>
-      </div>
-      <div class="item-info">
-        <div class="item-tags">
-          <span class="tag">Meta ADS</span><span class="tag">E-commerce</span>
-        </div>
-        <h3 class="item-title">Campanha Meta ADS</h3>
-        <p class="item-description">Estruturação e gestão de campanha no Meta com segmentação avançada e criativos otimizados para conversão.</p>
-      </div>
+<!-- ====== SEÇÃO 1 — VÍDEOS ====== -->
+<section class="carousel-section">
+  <div class="carousel-inner">
+    <div class="carousel-header">
+      <span class="carousel-label">[ VÍDEOS &amp; CONTEÚDO ]</span>
+      <span class="carousel-hint">Arraste para ver mais →</span>
     </div>
-
-    <!-- Item 2: Criativo para Instagram -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <img src="../assets/portfolio/pub-02.jpg" alt="Criativo para Instagram"> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
-          </div>
-          <span class="placeholder-label">[ Material Visual ]</span>
-        </div>
-      </div>
-      <div class="item-info">
-        <div class="item-tags">
-          <span class="tag">Criativo IA</span><span class="tag">Social Media</span>
-        </div>
-        <h3 class="item-title">Criativo para Instagram</h3>
-        <p class="item-description">Peças visuais produzidas com IA para feed e stories, com identidade visual alinhada à marca do cliente.</p>
-      </div>
+  </div>
+  <div class="carousel-wrapper fade-primary">
+    <div class="carousel-track" id="carousel-videos" role="list" aria-label="Galeria de vídeos">
+      <!-- Cards renderizados dinamicamente pelo JS -->
     </div>
-
-    <!-- Item 3: Vídeo Institucional -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <video src="../assets/portfolio/pub-03.mp4" controls poster="../assets/portfolio/pub-03-thumb.jpg"></video> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" opacity=".3"/></svg>
-          </div>
-          <span class="placeholder-label">[ Vídeo ]</span>
-        </div>
-      </div>
-      <div class="item-info">
-        <div class="item-tags">
-          <span class="tag">Vídeo</span><span class="tag">Institucional</span>
-        </div>
-        <h3 class="item-title">Vídeo Institucional</h3>
-        <p class="item-description">Produção de vídeo institucional para apresentar a empresa, serviços e diferenciais de forma profissional.</p>
-      </div>
-    </div>
-
-    <!-- Item 4: Campanha Google ADS -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <img src="../assets/portfolio/pub-04.jpg" alt="Campanha Google ADS"> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-          </div>
-          <span class="placeholder-label">[ Print de Campanha ]</span>
-        </div>
-      </div>
-      <div class="item-info">
-        <div class="item-tags">
-          <span class="tag">Google ADS</span><span class="tag">Lead Gen</span>
-        </div>
-        <h3 class="item-title">Campanha Google ADS</h3>
-        <p class="item-description">Campanha de pesquisa e display no Google com palavras-chave de alta intenção para geração de leads qualificados.</p>
-      </div>
-    </div>
-
-    <!-- Item 5: Reel Profissional (vertical) -->
-    <div class="portfolio-item">
-      <div class="media-area vertical">
-        <!-- SUBSTITUIR: adicionar <video src="../assets/portfolio/pub-05.mp4" controls poster="../assets/portfolio/pub-05-thumb.jpg"></video> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2"/><circle cx="12" cy="12" r="3"/><polygon points="11 10.5 14 12 11 13.5 11 10.5" fill="currentColor" opacity=".4"/></svg>
-          </div>
-          <span class="placeholder-label">[ Vídeo ]</span>
-        </div>
-      </div>
-      <div class="item-info">
-        <div class="item-tags">
-          <span class="tag">Reel</span><span class="tag">Conteúdo IA</span>
-        </div>
-        <h3 class="item-title">Reel Profissional</h3>
-        <p class="item-description">Reel vertical produzido com IA e edição profissional, otimizado para alta performance no Instagram e TikTok.</p>
-      </div>
-    </div>
-
-    <!-- Item 6: Estratégia de Conteúdo -->
-    <div class="portfolio-item">
-      <div class="media-area">
-        <!-- SUBSTITUIR: adicionar <img src="../assets/portfolio/pub-06.jpg" alt="Estratégia de Conteúdo"> aqui -->
-        <div class="placeholder-visual">
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          </div>
-          <span class="placeholder-label">[ Material Visual ]</span>
-        </div>
-      </div>
-      <div class="item-info">
-        <div class="item-tags">
-          <span class="tag">Planejamento</span><span class="tag">Social Media</span>
-        </div>
-        <h3 class="item-title">Estratégia de Conteúdo</h3>
-        <p class="item-description">Planejamento editorial completo com calendário de conteúdo, temas estratégicos e diretrizes de tom de voz.</p>
-      </div>
-    </div>
-
   </div>
 </section>
+
+
+<!-- ====== DIVIDER ====== -->
+<div class="section-divider" aria-hidden="true">
+  <div class="divider-line"></div>
+</div>
+
+
+<!-- ====== SEÇÃO 2 — RESULTADOS ====== -->
+<section class="carousel-section" style="background:var(--bg-secondary)">
+  <div class="carousel-inner">
+    <div class="carousel-header">
+      <span class="carousel-label">[ RESULTADOS &amp; MÉTRICAS ]</span>
+      <span class="carousel-hint">Números reais de campanhas gerenciadas pela AIVACS</span>
+    </div>
+  </div>
+  <div class="carousel-wrapper fade-secondary">
+    <div class="carousel-track" id="carousel-results" role="list" aria-label="Resultados de campanhas">
+
+      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-01.jpg" loading="lazy" alt="Resultado 1"> -->
+      <div class="result-card" role="listitem">
+        <div class="result-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>[ Print de Resultado ]</span>
+        </div>
+      </div>
+
+      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-02.jpg" loading="lazy" alt="Resultado 2"> -->
+      <div class="result-card" role="listitem">
+        <div class="result-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>[ Print de Resultado ]</span>
+        </div>
+      </div>
+
+      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-03.jpg" loading="lazy" alt="Resultado 3"> -->
+      <div class="result-card" role="listitem">
+        <div class="result-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>[ Print de Resultado ]</span>
+        </div>
+      </div>
+
+      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-04.jpg" loading="lazy" alt="Resultado 4"> -->
+      <div class="result-card" role="listitem">
+        <div class="result-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M18.4 9a9 9 0 01-3.7 9 9 9 0 01-9.3 1"/></svg>
+          <span>[ Print de Resultado ]</span>
+        </div>
+      </div>
+
+      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-05.jpg" loading="lazy" alt="Resultado 5"> -->
+      <div class="result-card" role="listitem">
+        <div class="result-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>[ Print de Resultado ]</span>
+        </div>
+      </div>
+
+      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-06.jpg" loading="lazy" alt="Resultado 6"> -->
+      <div class="result-card" role="listitem">
+        <div class="result-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>[ Print de Resultado ]</span>
+        </div>
+      </div>
+
+      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-07.jpg" loading="lazy" alt="Resultado 7"> -->
+      <div class="result-card" role="listitem">
+        <div class="result-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>[ Print de Resultado ]</span>
+        </div>
+      </div>
+
+      <!-- SUBSTITUIR: trocar .result-placeholder por <img src="../assets/resultados/resultado-08.jpg" loading="lazy" alt="Resultado 8"> -->
+      <div class="result-card" role="listitem">
+        <div class="result-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M18.4 9a9 9 0 01-3.7 9 9 9 0 01-9.3 1"/></svg>
+          <span>[ Print de Resultado ]</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ====== VIDEO MODAL ====== -->
+<div id="video-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Player de vídeo">
+  <div class="modal-container" id="modal-container">
+    <button class="modal-close" id="modal-close" aria-label="Fechar vídeo">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <div class="modal-player" id="modal-player"></div>
+  </div>
+</div>
+
+<!-- ====== LIGHTBOX (resultados) ====== -->
+<div id="lightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Visualizar resultado">
+  <img id="lightbox-img" src="" alt="Resultado da campanha">
+</div>
 
 
 <!-- ====== FOOTER ====== -->
@@ -268,9 +632,245 @@
   </div>
 </footer>
 
-<script src="../scripts/particles.js" defer></script>
-<script src="../scripts/animations.js" defer></script>
+
+<!-- ====== SCRIPTS ====== -->
 <script src="../scripts/main.js" defer></script>
-<script src="portfolio.js" defer></script>
+
+<script>
+(function () {
+
+  /* ================================================
+     1. VIDEO DATA — 33 Shorts + 1 vídeo normal
+  ================================================ */
+  const videos = [
+    { id: 'F4bYF2WzgBQ',  type: 'short' },
+    { id: 'Ifig__MXg1k',  type: 'short' },
+    { id: 'ltCdebLPrVs',  type: 'short' },
+    { id: 'mCqlZMncf3o',  type: 'short' },
+    { id: 'gSiz4EBbXnc',  type: 'short' },
+    { id: 'MNVUn9nqo60',  type: 'short' },
+    { id: 'wyNR31TqXmI',  type: 'short' },
+    { id: 'kg8CswZM5hU',  type: 'short' },
+    { id: 'T0uT-3KmNAA',  type: 'short' },
+    { id: 'H4wq5InP8WE',  type: 'short' },
+    { id: 'jWzglu2_nk0',  type: 'short' },
+    { id: 'HBo-aWuaSek',  type: 'short' },
+    { id: 'VgE63h0P_m0',  type: 'short' },
+    { id: 'r7fj-hFxbSA',  type: 'short' },
+    { id: 'nbfT3DDWmzQ',  type: 'short' },
+    { id: 'g4hCyAPJKDo',  type: 'short' },
+    { id: 'AvrETPzhwU0',  type: 'short' },
+    { id: 'PbebU6e1jk0',  type: 'short' },
+    { id: 'MKFbbI0690U',  type: 'short' },
+    { id: 'HwQ8qH5Yi5g',  type: 'short' },
+    { id: 'n-DiEfaAciI',  type: 'short' },
+    { id: 'McOwXzSypqk',  type: 'short' },
+    { id: 'mtGmr_eRWiM',  type: 'short' },
+    { id: 'diOR1tKoaic',  type: 'short' },
+    { id: 'Ck9PQt14Pag',  type: 'short' },
+    { id: 'G8CwsTd-I2w',  type: 'short' },
+    { id: 'ZWHHrOFUhUM',  type: 'short' },
+    { id: 'fAaKeDXgeS4',  type: 'short' },
+    { id: '7P2vQzoNyG8',  type: 'short' },
+    { id: 'fTos_Db949g',  type: 'short' },
+    { id: 'bT9O7656rKQ',  type: 'short' },
+    { id: 'ZTFEC0uwytc',  type: 'short' },
+    { id: 'NyRTvl-Qhr8',  type: 'short' },
+    { id: '-hK-9xEQG2s',  type: 'video' },  // único vídeo horizontal
+  ];
+
+
+  /* ================================================
+     2. RENDER VIDEO CARDS
+  ================================================ */
+  const track = document.getElementById('carousel-videos');
+
+  videos.forEach(function (v) {
+    var isWide = v.type === 'video';
+    var cardClass = isWide ? 'video-card-wide' : 'video-card';
+    var badge = isWide ? 'VÍDEO' : 'SHORT';
+
+    var card = document.createElement('div');
+    card.className = cardClass;
+    card.setAttribute('role', 'listitem');
+    card.setAttribute('data-id', v.id);
+    card.setAttribute('data-type', v.type);
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', 'Abrir vídeo');
+
+    card.innerHTML =
+      '<img' +
+      ' src="https://img.youtube.com/vi/' + v.id + '/maxresdefault.jpg"' +
+      ' alt="Vídeo AIVACS"' +
+      ' loading="lazy"' +
+      ' onerror="this.onerror=null;this.src=\'https://img.youtube.com/vi/' + v.id + '/hqdefault.jpg\'"' +
+      '>' +
+      '<div class="card-overlay">' +
+      '  <div class="play-icon">' +
+      '    <svg viewBox="0 0 56 56" fill="none" width="56" height="56">' +
+      '      <circle cx="28" cy="28" r="28" fill="rgba(0,0,0,0.55)"/>' +
+      '      <polygon points="23,18 42,28 23,38" fill="white"/>' +
+      '    </svg>' +
+      '  </div>' +
+      '  <span class="badge-type">' + badge + '</span>' +
+      '</div>';
+
+    // Click to open modal
+    card.addEventListener('click', function () { openModal(v.id, v.type); });
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openModal(v.id, v.type);
+      }
+    });
+
+    track.appendChild(card);
+  });
+
+
+  /* ================================================
+     3. DRAG-TO-SCROLL (mouse + touch)
+  ================================================ */
+  function makeDraggable(el) {
+    var isDown = false;
+    var startX = 0;
+    var scrollLeft = 0;
+    var hasMoved = false;
+
+    el.addEventListener('mousedown', function (e) {
+      isDown   = true;
+      hasMoved = false;
+      startX   = e.pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+      el.classList.add('is-dragging');
+    });
+
+    window.addEventListener('mouseup', function () {
+      isDown = false;
+      el.classList.remove('is-dragging');
+    });
+
+    el.addEventListener('mouseleave', function () {
+      isDown = false;
+      el.classList.remove('is-dragging');
+    });
+
+    el.addEventListener('mousemove', function (e) {
+      if (!isDown) return;
+      e.preventDefault();
+      hasMoved = true;
+      var x    = e.pageX - el.offsetLeft;
+      var walk = (x - startX) * 1.6;
+      el.scrollLeft = scrollLeft - walk;
+    });
+
+    /* Prevent click from firing after a drag */
+    el.addEventListener('click', function (e) {
+      if (hasMoved) e.stopPropagation();
+    }, true);
+
+    /* Touch */
+    el.addEventListener('touchstart', function (e) {
+      startX     = e.touches[0].pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+      hasMoved   = false;
+    }, { passive: true });
+
+    el.addEventListener('touchmove', function (e) {
+      hasMoved   = true;
+      var x      = e.touches[0].pageX - el.offsetLeft;
+      var walk   = (x - startX) * 1.6;
+      el.scrollLeft = scrollLeft - walk;
+    }, { passive: true });
+  }
+
+  makeDraggable(document.getElementById('carousel-videos'));
+  makeDraggable(document.getElementById('carousel-results'));
+
+
+  /* ================================================
+     4. VIDEO MODAL
+  ================================================ */
+  var modal     = document.getElementById('video-modal');
+  var player    = document.getElementById('modal-player');
+  var container = document.getElementById('modal-container');
+  var btnClose  = document.getElementById('modal-close');
+
+  function openModal(videoId, type) {
+    var isWide = type === 'video';
+
+    /* Adjust dimensions */
+    if (isWide) {
+      player.style.aspectRatio    = '16/9';
+      player.classList.add('wide-player');
+      container.classList.add('wide');
+    } else {
+      player.style.aspectRatio    = '9/16';
+      player.classList.remove('wide-player');
+      container.classList.remove('wide');
+    }
+
+    /* For Shorts, use the Shorts embed path */
+    var embedUrl = isWide
+      ? 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1'
+      : 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0&modestbranding=1';
+
+    player.innerHTML = '<iframe src="' + embedUrl + '" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>';
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    /* Short delay before clearing player to allow fade-out */
+    setTimeout(function () { player.innerHTML = ''; }, 320);
+    document.body.style.overflow = '';
+  }
+
+  btnClose.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (modal.classList.contains('active'))     closeModal();
+      if (lightbox.classList.contains('active'))  closeLightbox();
+    }
+  });
+
+
+  /* ================================================
+     5. LIGHTBOX (result images — activates when
+        .result-placeholder is replaced by <img>)
+  ================================================ */
+  var lightbox    = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightbox-img');
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  lightbox.addEventListener('click', closeLightbox);
+
+  /* Wire up result cards that already have <img> children */
+  document.querySelectorAll('.result-card').forEach(function (card) {
+    var img = card.querySelector('img');
+    if (img) {
+      card.classList.add('has-image');
+      card.addEventListener('click', function () {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    }
+  });
+
+})();
+</script>
 </body>
 </html>
