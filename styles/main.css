@@ -356,25 +356,25 @@ section { padding: 96px 6%; position: relative; overflow: hidden; }
 
 /* ===== METRICS ===== */
 #metrics {
-  padding: 52px 6%;
+  padding: 32px 6%;
   background: var(--bg-secondary);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   overflow: visible;
 }
 .metrics-grid {
-  display: flex; justify-content: center; align-items: center;
+  display: flex; flex-direction: row; justify-content: center; align-items: center;
   max-width: 780px; margin: 0 auto;
 }
-.metric-item { flex: 1; text-align: center; padding: 0 40px; }
+.metric-item { flex: 1; text-align: center; padding: 16px 24px; }
 .metric-item:not(:last-child) { border-right: 1px solid var(--border); }
 .metric-number {
   font-family: var(--font-display);
-  font-size: clamp(52px, 6vw, 80px);
+  font-size: clamp(36px, 4vw, 56px);
   font-weight: 800; color: var(--accent); line-height: 1;
-  letter-spacing: -1px; margin-bottom: 10px;
+  letter-spacing: -1px; margin-bottom: 6px;
 }
-.metric-label { font-size: 1rem; color: var(--text-secondary); font-weight: 400; }
+.metric-label { font-size: 0.8rem; color: var(--text-secondary); font-weight: 400; line-height: 1.3; }
 
 /* ===== PROBLEM ===== */
 #problema { background: var(--bg-primary); }
@@ -713,11 +713,98 @@ footer { background: var(--bg-secondary); padding: 52px 6% 28px; position: relat
   .hero-headline { font-size: clamp(36px, 8vw, 48px); letter-spacing: -0.02em; }
   .pain-grid { grid-template-columns: 1fr; }
   .invest-pillars { max-width: 100%; }
-  .steps-container { grid-template-columns: 1fr; }
-  .metrics-grid { flex-direction: column; gap: 0; }
-  .metric-item { border-right: none !important; border-bottom: 1px solid var(--border); padding: 28px 0; }
-  .metric-item:last-child { border-bottom: none; }
   .footer-inner { flex-direction: column; }
+
+  /* Ajuste 1 — Hero canvas: nunca fixed no mobile (quebra iOS) */
+  #hero { position: relative; overflow: hidden; }
+  #hero canvas, #particles {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .hero-bg, .hero-grid, .hero-glow, .hero-watermark {
+    background-attachment: scroll !important;
+  }
+
+  /* Ajuste 2 — Metrics: manter horizontal no mobile */
+  #metrics { padding: 24px 5%; }
+  .metrics-grid { flex-direction: row !important; gap: 0; }
+  .metric-item {
+    border-right: 1px solid var(--border) !important;
+    border-bottom: none !important;
+    padding: 12px 10px;
+  }
+  .metric-item:last-child { border-right: none !important; }
+  .metric-number { font-size: clamp(28px, 7vw, 40px); }
+  .metric-label { font-size: 11px; }
+
+  /* Ajuste 4 — Tech stack: compactar no mobile */
+  #ferramentas { padding-top: 40px; padding-bottom: 40px; }
+  #ferramentas .section-title { font-size: 1.25rem; margin-bottom: 12px; }
+  .tool-item { padding: 7px 13px; gap: 7px; }
+  .tool-item span { font-size: 0.72rem; }
+  .marquee-wrapper::before,
+  .marquee-wrapper::after { width: 40px; }
+}
+
+/* Ajuste 3 — Process: vertical timeline no mobile */
+@media (max-width: 768px) {
+  #processo .steps-container {
+    display: flex !important;
+    flex-direction: column;
+    gap: 0;
+    padding-left: 44px;
+    grid-template-columns: unset;
+  }
+  /* Track cinza (inativo) */
+  #processo .steps-container::before {
+    content: '';
+    position: absolute;
+    left: 18px; top: 28px; bottom: 28px;
+    width: 2px;
+    background: rgba(75,191,239,0.1);
+    border-radius: 2px;
+  }
+  /* Linha de progresso (JS controla height) */
+  .steps-progress-line {
+    position: absolute;
+    left: 18px; top: 28px;
+    width: 2px; height: 0%;
+    background: linear-gradient(to bottom, var(--accent), rgba(75,191,239,0.3));
+    border-radius: 2px;
+    transition: height 0.6s ease;
+    z-index: 1;
+  }
+  /* Ponto de cada step */
+  .steps-dot {
+    position: absolute;
+    left: -34px; top: 2px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    border: 2px solid rgba(75,191,239,0.2);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+    z-index: 2;
+    flex-shrink: 0;
+  }
+  #processo .step.step-active .steps-dot {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(75,191,239,0.5), 0 0 24px rgba(75,191,239,0.2);
+    background: rgba(75,191,239,0.1);
+  }
+  /* Step individual */
+  #processo .step {
+    position: relative;
+    padding: 0 0 36px 16px;
+    padding-top: 0;
+    text-align: left;
+    opacity: 0.4;
+    transition: opacity 0.5s ease;
+  }
+  #processo .step.step-active { opacity: 1; }
+  /* Esconder círculo desktop (substituído pelo dot) */
+  #processo .step-circle { display: none; }
+  #processo .steps-line { display: none; }
 }
 @media (max-width: 480px) {
   .hero-headline { font-size: clamp(32px, 9vw, 40px); }

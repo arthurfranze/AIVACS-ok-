@@ -7,8 +7,8 @@
 /* ---- Sub-page hero ---- */
 .subpage-hero {
   min-height: 42vh;
-  display: flex; align-items: center;
-  padding: 130px 6% 72px;
+  display: flex; align-items: flex-end;
+  padding-bottom: 52px;
   position: relative; overflow: hidden;
 }
 
@@ -29,9 +29,13 @@
   background: radial-gradient(ellipse, rgba(75,191,239,0.06) 0%, transparent 70%);
 }
 
-.subpage-hero-content {
+/* Inner content container */
+.subpage-hero-inner {
   position: relative; z-index: 2;
-  max-width: 860px;
+  width: 100%; max-width: 1200px;
+  margin: 0 auto; padding: 0 48px;
+  padding-top: 120px;    /* espaço para a navbar */
+  display: flex; flex-direction: column; gap: 0;
   animation: heroFadeIn 0.8s cubic-bezier(0.4,0,0.2,1) both;
 }
 
@@ -40,40 +44,62 @@
   to   { opacity: 1; transform: none; }
 }
 
-/* Breadcrumb */
-.breadcrumb {
-  font-family: var(--font-mono);
-  font-size: 0.72rem; letter-spacing: 0.06em;
-  color: var(--text-muted);
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 28px; flex-wrap: wrap;
-}
-.breadcrumb a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
-.breadcrumb a:hover { color: var(--accent); }
-.breadcrumb .sep { color: var(--text-muted); }
-.breadcrumb .current { color: var(--accent); }
-
-/* Hero label */
+/* Label da categoria */
 .subpage-label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem; letter-spacing: 0.22em; color: var(--accent);
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
-.subpage-label::before, .subpage-label::after {
-  content: ''; display: block; width: 14px; height: 1px; background: var(--accent);
+.label-text {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 2px;
+  color: var(--accent); text-transform: uppercase;
 }
 
+/* Breadcrumb — separado do label, antes do título */
+.subpage-breadcrumb {
+  display: flex; align-items: center;
+  gap: 8px; flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.subpage-breadcrumb a {
+  font-family: var(--font-body);
+  font-size: 13px; color: var(--text-secondary);
+  text-decoration: none; transition: color 0.2s;
+}
+.subpage-breadcrumb a:hover { color: var(--accent); }
+.bc-sep { font-size: 11px; color: rgba(139,149,161,0.4); }
+.bc-current { font-family: var(--font-body); font-size: 13px; color: var(--accent); }
+
+/* Título */
 .subpage-title {
   font-family: var(--font-display);
-  font-size: clamp(1.9rem, 4vw, 3rem);
-  font-weight: 800; line-height: 1.1;
-  letter-spacing: -0.02em; margin-bottom: 16px;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.5px; margin: 0 0 14px;
+  color: var(--text-primary);
 }
 
+/* Descrição */
 .subpage-desc {
-  font-size: 1rem; color: var(--text-secondary);
-  line-height: 1.75; max-width: 640px;
+  font-size: clamp(0.9rem, 1.5vw, 1.0625rem);
+  color: var(--text-secondary);
+  line-height: 1.65; max-width: 620px; margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .subpage-hero {
+    min-height: auto; align-items: flex-start;
+    padding-bottom: 36px;
+  }
+  .subpage-hero-inner {
+    padding: 0 20px; padding-top: 100px;
+  }
+  .subpage-label { margin-bottom: 10px; }
+  .label-text { font-size: 10px; }
+  .subpage-breadcrumb { margin-bottom: 16px; gap: 6px; }
+  .subpage-breadcrumb a, .bc-current { font-size: 12px; }
+  .subpage-title { font-size: clamp(1.6rem, 7vw, 2rem); margin-bottom: 12px; }
+  .subpage-desc { font-size: 14px; }
 }
 
 /* ---- Portfolio items section ---- */

@@ -177,4 +177,64 @@
   setTimeout(drawHeroConnections, 1400);
   window.addEventListener('resize', drawHeroConnections);
 
+
+  /* =====================
+     8. PROCESS TIMELINE — mobile vertical animation
+  ===================== */
+  function initProcessTimeline() {
+    if (window.innerWidth > 768) return;
+
+    const container = document.getElementById('stepsContainer');
+    if (!container) return;
+
+    const steps = Array.from(container.querySelectorAll('.step'));
+
+    /* Create progress line once */
+    if (!container.querySelector('.steps-progress-line')) {
+      const line = document.createElement('div');
+      line.className = 'steps-progress-line';
+      container.appendChild(line);
+    }
+
+    /* Add dot to each step if not present */
+    steps.forEach(step => {
+      if (!step.querySelector('.steps-dot')) {
+        const dot = document.createElement('div');
+        dot.className = 'steps-dot';
+        step.insertBefore(dot, step.firstChild);
+      }
+    });
+
+    const progressLine = container.querySelector('.steps-progress-line');
+
+    function updateTimeline() {
+      const winH = window.innerHeight;
+      let activeCount = 0;
+
+      steps.forEach((step, i) => {
+        const rect = step.getBoundingClientRect();
+        const mid  = rect.top + rect.height / 2;
+        if (mid < winH * 0.75) {
+          step.classList.add('step-active');
+          activeCount = i + 1;
+        }
+      });
+
+      if (progressLine && steps.length > 0) {
+        progressLine.style.height = ((activeCount / steps.length) * 100) + '%';
+      }
+    }
+
+    window.addEventListener('scroll', updateTimeline, { passive: true });
+    updateTimeline(); /* run on load */
+  }
+
+  /* Init on load + reinit on resize */
+  initProcessTimeline();
+  let resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(initProcessTimeline, 200);
+  });
+
 })();
